@@ -3,6 +3,11 @@ import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
 
 const root = "out";
+const worker = JSON.parse(readFileSync("wrangler.json", "utf8"));
+assert.equal(path.resolve(worker.assets.directory), path.resolve(root));
+assert.equal(worker.assets.html_handling, "drop-trailing-slash");
+assert.equal(worker.assets.not_found_handling, "404-page");
+assert.ok(!worker.main && !worker.build, "Static assets must not trigger server bundling or a second framework build");
 const { categories, products } = JSON.parse(readFileSync("src/data/catalog.json", "utf8"));
 const routes = [
   "/", "/urunler", "/hakkimizda", "/iletisim",
@@ -13,8 +18,8 @@ const sitemap = readFileSync(path.join(root, "sitemap.xml"), "utf8");
 const siteOrigin = new URL(sitemap.match(/<loc>([^<]+)<\/loc>/)[1]).origin;
 assert.equal((sitemap.match(/<loc>/g) || []).length, routes.length);
 assert.ok(readFileSync(path.join(root, "robots.txt"), "utf8").includes(`${siteOrigin}/sitemap.xml`));
-assert.ok(existsSync(path.join(root, "404.html")), "A real 404 prevents Pages from falling back to the home page");
-assert.ok(!existsSync(path.join(root, "_worker.js")), "The export must not require a Worker");
+assert.ok(existsSync(path.join(root, "404.html")), "The configured 404 handler requires a 404.html file");
+assert.ok(!existsSync(path.join(root, "_worker.js")), "The export must not contain a server script among public assets");
 
 const referencedImages = new Set();
 for (const route of routes) {
@@ -44,6 +49,6 @@ for (const { slug } of categories) {
 }
 assert.equal(readFileSync(path.join(root, "_headers"), "utf8"), readFileSync("public/_headers", "utf8"));
 const files = readdirSync(root, { recursive: true }).filter((file) => statSync(path.join(root, file)).isFile());
-assert.ok(files.length <= 20000, "Cloudflare Pages Free file limit exceeded");
+assert.ok(files.length <= 20000, "Cloudflare Workers Free asset limit exceeded");
 for (const file of files) assert.ok(statSync(path.join(root, file)).size <= 25 * 1024 * 1024, `Asset exceeds 25 MiB: ${file}`);
-console.log(`Static export verified: ${routes.length} pages, ${referencedImages.size} referenced responsive images, ${categories.length * 2} redirects, security headers and Pages Free asset limits.`);
+console.log(`Static export verified: ${routes.length} pages, ${referencedImages.size} referenced responsive images, ${categories.length * 2} redirects, security headers and Workers Static Assets configuration.`);
