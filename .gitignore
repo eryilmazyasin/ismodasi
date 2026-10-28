@@ -10,3 +10,5 @@ out/
 .wrangler/
 public/images/responsive/
 public/_redirects
+.dev.vars*
+!.dev.vars.example

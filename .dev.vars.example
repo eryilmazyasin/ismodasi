@@ -1,0 +1,2 @@
+# Copy to .dev.vars for local Workers preview only. Never commit real credentials.
+RESEND_API_KEY=replace-with-your-resend-api-key

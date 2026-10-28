@@ -43,9 +43,9 @@ Git entegrasyonu kullanmadan CLI ile manuel dağıtım için `npm run build` son
 
 Ürünler `src/data/catalog.json` içindedir. Katalog, `assets/source/products/all-products/` altındaki 20 dolu kategorinin 141 ürününü içerir. Aktif kaynak ürün görselleri `assets/source/products/all-products/` altında korunur; eski kaynaklar `assets/archive/legacy-products/` altındadır. Kaban klasörü boş olduğu için yayımlanmaz. Yayındaki dosyalar `public/images/` altında kullanım alanına göre gruplanır ve ASCII adlarıyla tutulur.
 
-İletişim: 0536 080 1845 / info@ismodasi.com. Bilgi talebi kullanıcının e-posta uygulamasını açar; otomatik mesaj göndermez. Ödeme, sepet, üyelik veya form sunucusu bulunmaz. Beden, kumaş ve sertifikalar henüz doğrulanmadığı için belirtilmez.
+İletişim: 0536 080 1845 / info@ismodasi.com. Ürün detaylarındaki bilgi talebi e-posta uygulamasını açar. İletişim sayfasındaki form ise Workers `/api/contact` uç noktası üzerinden `info@ismodasi.com` adresine otomatik e-posta gönderir. Ödeme, sepet veya üyelik bulunmaz. Beden, kumaş ve sertifikalar henüz doğrulanmadığı için belirtilmez.
 
-İletişim sayfasındaki talep formu ad, firma, e-posta, tahmini adet ve mesaj alanlarını içerir. Gerekli alanları doğrular ve bilgileri e-posta taslağına aktarır; gönderimi kullanıcı kendi e-posta uygulamasında tamamlar. Veriler sunucuda saklanmaz. Bu sayfanın görseli imagegen ile üretilmiştir; optimize WebP dosyası public/images/contact/, kaynak ve üretim istemi assets/source/contact/ altındadır.
+İletişim sayfasındaki talep formu ad, firma, e-posta, tahmini adet ve mesaj alanlarını içerir. Gerekli alanları hem tarayıcıda hem Worker üzerinde doğrular; başarılı API yanıtından sonra talebin alındığını gösterir. Başarısız gönderimlerde alanlar korunur. Talep verileri uygulama veritabanına veya loglarına yazılmaz; teslimat için Cloudflare ve Resend üzerinden işlenir ve alıcı posta kutusuna iletilir. Bu sayfanın görseli imagegen ile üretilmiştir; optimize WebP dosyası public/images/contact/, kaynak ve üretim istemi assets/source/contact/ altındadır.
 
 ## Klasör yapısı
 
@@ -82,4 +82,18 @@ Kategori klasörü → görünen ad, URL ve menü grubu eşleşmeleri `src/data/
 
 Node.js 22 kullanın. Kilit dosyasındaki bağımlılıkları `npm ci` ile kurun. `npm run check:catalog`, `npm audit --omit=dev` ve `npm run build` komutlarını çalıştırın. Derleme sonundaki `check:static` kontrolü sayfaları, görsel dosyalarını, yönlendirmeleri, Workers yapılandırmasını ve dosya sınırlarını doğrular. Ardından `npm start` ile http://127.0.0.1:8787 adresinde yerel Workers Static Assets önizlemesini açıp katalog aramasını, kategori filtrelerini, mobil menüyü ve iletişim formunu kontrol edin. `/robots.txt` ve `/sitemap.xml` adreslerinin gerçek alan adını gösterdiğini doğrulayın.
 
-Proje `output: "export"` ile statik yayınlanır; üretimde Next.js sunucusu, Workers adaptörü veya ücretli görsel servisi gerekmez. `next start` bu yapı için kullanılmaz. Alan adı ve TLS ayarlarını Cloudflare panelinde tamamlayın. İletişim formu e-posta taslağı açar; otomatik teslimat için bir form sunucusu yapılandırılmış değildir.
+Proje `output: "export"` ile statik yayınlanır; üretimde Next.js sunucusu, Workers adaptörü veya ücretli görsel servisi gerekmez. `next start` bu yapı için kullanılmaz. Alan adı ve TLS ayarlarını Cloudflare panelinde tamamlayın. İletişim formunun canlı teslimatı için aşağıdaki Resend yapılandırması tamamlanmalıdır.
+
+## Formdan otomatik e-posta gönderimi
+
+Statik site Workers Static Assets üzerinde kalır. `src/worker/index.ts` yalnızca `/api/contact` gönderimlerini işler; diğer istekleri `ASSETS` üzerinden sunar. Next.js API route veya OpenNext kullanılmaz.
+
+1. [Resend](https://resend.com) hesabınızda **Domains** bölümüne `bildirim.ismodasi.com` gönderici alt alan adını ekleyin. Resend'in gösterdiği DNS kayıtlarını Cloudflare DNS'e ekleyip doğrulayın. Yalnızca gönderimi etkinleştirin; Natro'nun kök alan adına ait MX, SPF, DKIM ve mevcut yönlendirme kayıtlarını değiştirmeyin.
+2. **API Keys** bölümünden yalnızca gönderim yetkili, bu alan adına sınırlı bir anahtar oluşturun.
+3. Cloudflare'da `ismodasi` Worker → **Settings → Variables and Secrets** altında `RESEND_API_KEY` adında **Secret** ekleyin. Bu anahtarı Git'e veya `NEXT_PUBLIC_` değişkenlerine yazmayın. CLI alternatifi: `npx wrangler secret put RESEND_API_KEY`. Preview kullanıyorsanız onun secret ayarını da ayrıca tamamlayın.
+4. `wrangler.json` içindeki `CONTACT_FROM` varsayılanı `İş Modası <form@bildirim.ismodasi.com>` şeklindedir. Doğruladığınız gönderici alan adı farklıysa bu değeri ona göre güncelleyin. Alıcı kodda sabit `info@ismodasi.com` olarak tutulur; ziyaretçi adresi yalnızca `Reply-To` olur. Natro'daki mevcut yönlendirme, gelen e-postayı kişisel adresinize iletmeye devam eder.
+5. Değişiklikleri pushlayıp yayın tamamlandıktan sonra `/iletisim` üzerinden bir test talebi gönderin. Resend gönderim kayıtlarını ve alıcı kutusunu kontrol edin. API kabulü, mesajın spam klasörüne düşmeyeceğini garanti etmez.
+
+Anahtar tanımlanmamışsa form başarılı görünmez; kullanıcıya e-posta/telefon ile ulaşma seçeneği sunulur. Gönderim sunucuda 10 saniye, tarayıcıda 20 saniye ile sınırlıdır. Aynı formu tekrar denemek Resend'in 24 saatlik idempotency anahtarıyla yinelenen gönderimi önler. Alan değiştiğinde yeni bir talep kimliği üretilir. Sunucu, aynı origin kontrolü, gizli bot alanı ve Cloudflare Rate Limiting binding ile IP başına yaklaşık 3 istek/dakika uygular; sayaçlar Cloudflare konumu bazındadır.
+
+Yerel test için `.dev.vars.example` dosyasını `.dev.vars` olarak kopyalayıp gerçek anahtarı yalnızca bu dosyaya yazın; dosya Git dışında tutulur. `npm run build` ve `npm start` ile form API'sini de içeren önizlemeyi açın (`npm run dev` yalnızca Next.js sayfalarını sunar). `npm run test:contact`, gerçek e-posta göndermeden derlenmiş Worker üzerinde sahte sağlayıcıyla gönderim, hata, güvenlik ve tekrar deneme senaryolarını kontrol eder.

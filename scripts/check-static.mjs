@@ -7,7 +7,10 @@ const worker = JSON.parse(readFileSync("wrangler.json", "utf8"));
 assert.equal(path.resolve(worker.assets.directory), path.resolve(root));
 assert.equal(worker.assets.html_handling, "drop-trailing-slash");
 assert.equal(worker.assets.not_found_handling, "404-page");
-assert.ok(!worker.main && !worker.build, "Static assets must not trigger server bundling or a second framework build");
+assert.equal(worker.main, "src/worker/index.ts");
+assert.equal(worker.assets.binding, "ASSETS");
+assert.deepEqual(worker.assets.run_worker_first, ["/api/*"]);
+assert.ok(!worker.build, "Deployment must not trigger a second framework build");
 const { categories, products } = JSON.parse(readFileSync("src/data/catalog.json", "utf8"));
 const routes = [
   "/", "/urunler", "/hakkimizda", "/iletisim",

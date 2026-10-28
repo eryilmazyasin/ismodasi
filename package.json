@@ -13,7 +13,8 @@
     "import:catalog": "node scripts/import-catalog.mjs",
     "prebuild": "node scripts/prepare-static.mjs",
     "postbuild": "npm run check:static",
-    "check:static": "node scripts/check-static.mjs"
+    "check:static": "node scripts/check-static.mjs",
+    "test:contact": "wrangler deploy --no-autoconfig --dry-run --outdir output/contact-worker && node scripts/check-contact.mjs"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
