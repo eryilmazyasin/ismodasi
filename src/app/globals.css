@@ -1,18 +1,17 @@
 @import "tailwindcss";
 @theme inline {
   --font-sans: var(--font-barlow);
-  --color-brand: #087fb5;
+  --color-brand: var(--ink);
 }
 :root {
   --background: #fff;
   --ink: #202725;
   --muted: #68706d;
   --line: #e3e7e4;
-  --blue: #087fb5;
   --accent: #536b70;
   --accent-light: #c4d3d4;
   --accent-glow: rgb(83 107 112 / 25%);
-  --interaction-hover: #294b50;
+  --interaction-hover: #3b4842;
   --surface: #f2f4f2;
   --scroll-thumb: #a2aaa5;
   --scroll-hover: #6b7770;
@@ -90,10 +89,10 @@ summary {
   outline-offset: 5px;
 }
 :focus-visible {
-  outline: 2px solid var(--blue);
+  outline: 2px solid var(--ink);
 }
 ::selection {
-  background: #d7edf6;
+  background: #dfe5e1;
 }
 h1,
 h2,
@@ -264,12 +263,21 @@ img {
   color: var(--interaction-hover);
 }
 .header-contact {
-  border-bottom: 1px solid var(--ink);
+  border: 0;
+  border-radius: 2px;
+  background: var(--ink);
+  color: #fff;
   display: flex;
   align-items: center;
   gap: 17px;
-  padding-block: 7px;
+  min-height: 44px;
+  padding: 12px 18px;
   margin-left: 18px;
+  transition: background 0.18s;
+}
+.main-nav > .header-contact:hover {
+  background: var(--interaction-hover);
+  color: #fff;
 }
 .mobile-toggle {
   display: none;
@@ -594,23 +602,6 @@ img {
 .product-info h3 a:hover {
   color: var(--interaction-hover);
 }
-.product-color {
-  display: block;
-  font-size: 11px;
-  color: #626c65;
-  margin-top: 4px;
-}
-.product-link {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 11px;
-  font-weight: 500;
-  margin-top: 13px;
-}
-.product-link:hover {
-  color: var(--interaction-hover);
-}
 .empty-state {
   padding: 70px 20px;
   min-height: 360px;
@@ -832,6 +823,10 @@ img {
 .inquiry-box .button {
   width: 100%;
   gap: 13px;
+  background: var(--ink);
+}
+.inquiry-box .button:hover {
+  background: var(--interaction-hover);
 }
 .detail-phone {
   display: flex;
@@ -906,7 +901,7 @@ img {
   border-bottom: 1px solid var(--line);
 }
 .contact-methods > a > svg:first-child {
-  color: var(--blue);
+  color: var(--ink);
 }
 .contact-methods > a > svg:last-child {
   margin-left: auto;
@@ -1258,13 +1253,6 @@ img {
   .product-info h3 {
     font-size: 13px;
     min-height: 39px;
-  }
-  .product-color {
-    font-size: 10px;
-  }
-  .product-link {
-    font-size: 10px;
-    margin-top: 10px;
   }
   .workwear-story {
     grid-template-columns: 1fr;

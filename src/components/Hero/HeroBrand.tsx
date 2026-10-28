@@ -23,7 +23,7 @@ export default function HeroBrand({ back = false }: HeroBrandProps) {
             >
               <path
                 d="M0 1.5H4"
-                stroke="#182c4f"
+                stroke="#202725"
                 strokeOpacity=".25"
                 strokeWidth=".6"
               />

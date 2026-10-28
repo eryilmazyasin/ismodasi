@@ -28,10 +28,6 @@ export default function ProductCard({
         <h3>
           <Link href={`/urun/${product.slug}`}>{product.name}</Link>
         </h3>
-        <span className="product-color">{product.color}</span>
-        <Link className="product-link" href={`/urun/${product.slug}`}>
-          Ürünü incele
-        </Link>
       </div>
     </article>
   );

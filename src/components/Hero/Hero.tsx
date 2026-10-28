@@ -33,13 +33,14 @@ export default function Hero() {
       {
         always: "all",
         motion:
-          "(prefers-reduced-motion: no-preference) and (min-height: 700px)",
+          "(prefers-reduced-motion: no-preference) and ((min-height: 700px) or (max-width: 767px))",
         mobile: "(max-width: 767px)",
       },
       (context) => {
         const mobile = Boolean(context.conditions?.mobile);
         // Phones use the stage buttons so the story does not trap a long scroll.
-        const animated = Boolean(context.conditions?.motion) && !mobile;
+        // Scroll scrubbing is restored on phones; the buttons remain shortcuts.
+        const animated = Boolean(context.conditions?.motion);
         const sticky = element.querySelector<HTMLElement>(`.${styles.sticky}`)!;
         const buttons =
           element.querySelectorAll<HTMLButtonElement>("[data-step]");
@@ -101,7 +102,16 @@ export default function Hero() {
                 scrollTrigger: {
                   id: "hero-customization",
                   trigger: element,
-                  start: `top ${mobile ? 12 : 24}px`,
+                  // Let the mobile copy scroll away before holding the full model
+                  // in view, including on screens shorter than the hero content.
+                  start: () =>
+                    `top ${mobile ? Math.min(12, window.innerHeight - sticky.offsetHeight - 12) : 24}px`,
+                  onRefreshInit: () => {
+                    if (mobile)
+                      gsap.set(sticky, {
+                        top: Math.min(12, window.innerHeight - sticky.offsetHeight - 12),
+                      });
+                  },
                   end: () =>
                     `+=${Math.max(1, element.offsetHeight - sticky.offsetHeight)}`,
                   scrub: 0.35,
@@ -115,6 +125,15 @@ export default function Hero() {
           element.querySelector<HTMLElement>("[data-brand-front]")!;
         const backBrand =
           element.querySelector<HTMLElement>("[data-brand-back]")!;
+        // Reuse the story's scroll progress; the decorative layer never moves
+        // the headline or adds a second scroll listener.
+        if (animated)
+          timeline.fromTo(
+            select("[data-hero-texture]"),
+            { y: mobile ? -12 : -28 },
+            { y: mobile ? 12 : 28, duration: 1 },
+            0,
+          );
         timeline
           .to(
             select("[data-brand-front] [data-guide], [data-front-callout]"),
@@ -269,6 +288,16 @@ export default function Hero() {
         <style>{`.${styles.experience}{height:auto!important}.${styles.sticky}{position:relative!important}`}</style>
       </noscript>
       <div className={styles.sticky}>
+        <div className={styles.atmosphere} aria-hidden="true">
+          <div className={styles.fabricTexture} data-hero-texture>
+            <Image
+              src="/images/hero/workwear-texture.webp"
+              alt=""
+              fill
+              sizes="(max-width: 767px) 100vw, 75vw"
+            />
+          </div>
+        </div>
         <div className={styles.layout}>
           <div className={styles.copy}>
             <span className={styles.eyebrow}>İŞ GİYİMİNDE SİZİN İMZANIZ</span>
@@ -316,7 +345,7 @@ export default function Hero() {
           </div>
           <figure
             className={styles.stage}
-            aria-label="Aynı tek renk mavi poların önüne temsili logo, sırtına firma adı işlenir. Kişiselleştirme aşamalarında ön ve sırt görünümünü keşfedin."
+            aria-label="Aynı füme poların önüne temsili logo, sırtına firma adı işlenir. Kişiselleştirme aşamalarında ön ve sırt görünümünü keşfedin."
           >
             <div className={styles.stageTop}>
               <span>EKİBİNİZE ÖZEL İŞ GİYİM.</span>
@@ -325,7 +354,7 @@ export default function Hero() {
             <div className={styles.modelFrame}>
               <div className={styles.face} data-front aria-hidden="true">
                 <Image
-                  src="/images/hero/fleece-worn-blue.webp"
+                  src="/images/hero/fleece-worn-charcoal-front-transparent.webp"
                   alt=""
                   fill
                   sizes="(max-width: 767px) 68vw, 35vw"
@@ -340,7 +369,7 @@ export default function Hero() {
                 aria-hidden="true"
               >
                 <Image
-                  src="/images/hero/fleece-worn-back.webp"
+                  src="/images/hero/fleece-worn-charcoal-back-transparent.webp"
                   alt=""
                   fill
                   sizes="(max-width: 767px) 68vw, 35vw"

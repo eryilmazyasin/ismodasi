@@ -5,10 +5,10 @@ colors:
   ink: "#202725"
   muted: "#68706d"
   line: "#e3e7e4"
-  primary: "#087fb5"
+  primary: "#202725"
   accent: "#536b70"
   accentLight: "#c4d3d4"
-  interactionHover: "#294b50"
+  interactionHover: "#3b4842"
   surface: "#f2f4f2"
 typography:
   sans:
@@ -27,7 +27,7 @@ Turkish B2B workwear catalog for corporate buyers. Product photography and pract
 
 ## Colors
 
-Runtime token owner: `src/app/globals.css` :root. Values above document that source; components consume variables. Logo blue supports focus and selected states. Muted slate (#536b70) replaces orange accents throughout the interface; pale silver (#c4d3d4) keeps the embroidery needle visible over blue fabric. Buttons and links use deep petrol (#294b50) on hover, with white text on filled buttons. Runtime tokens --accent, --accent-light, --accent-glow and --interaction-hover in :root own these values. White background, an ink foreground, muted green-gray photo stages. One light theme.
+Runtime token owner: `src/app/globals.css` :root. Logo blue and orange are reserved for the logo asset. Interface buttons, selected states, progress lines, focus rings and icons use ink (#202725); hover uses a complementary lighter charcoal (#3b4842). Filled buttons have white text. Muted slate (#536b70) and silver (#c4d3d4) support decorative embroidery details. Product photographs retain their real garment colors. Runtime tokens --ink, --accent, --accent-light, --accent-glow and --interaction-hover own these values. White background, muted green-gray surfaces and one light theme.
 
 ## Typography
 
@@ -65,10 +65,20 @@ The hero now spans the page width with a continuous right-to-left gradient (phot
 
 Desktop hero composition uses a continuous scene with a wider text region (58% text / 42% image), no grid gap, and a two-line headline: “Ekibiniz ilk bakışta / fark edilsin.” The intro wraps to the established three-line treatment on phones. Supporting copy wraps naturally instead of using a forced line break.
 
-The final headline line, “fark edilsin.”, uses Barlow Bold lettering, superseding its earlier brand-blue treatment. Only “fark” has a black #111111 background and white #ffffff lettering; “edilsin.” has a transparent background and inherits the headline ink color, including the period. Square corners, tight tracking, and optical em-based insets keep this typographic emphasis consistent across desktop and mobile; these colors are owned by the local Hero CSS module.
+The final headline line, “fark edilsin.”, uses Barlow Bold lettering, superseding its earlier brand-blue treatment. Only “fark” has a black #000000 background and white #ffffff lettering; the rest of the headline uses the shared ink color (var(--ink), #202725) on a transparent background, including the period. Square corners, tight tracking, and optical em-based insets keep this typographic emphasis consistent across desktop and mobile; these colors are owned by the local Hero CSS module.
 
 Photo annotations (placement callouts, turn indicator, caption bar) use an opaque #f8faf9 surface with #d5ded7 borders and dark text. Text must remain legible over the blue fabric, skin, and trousers at every scroll phase; mobile annotations retain the same contrast treatment.
 
-Hero background remains a plain continuous gradient, with no decorative illustrations or wave animations.
+Hero background layers an AI-generated pale grey woven workwear textile photograph over the established gradient. The decorative texture spans the full hero behind both copy and model, with low opacity (38% desktop, 24% mobile). Existing GSAP story progress moves only the texture vertically by 56px desktop / 24px mobile; reduced motion keeps it static. The headline and controls remain stationary. Asset: public/images/hero/workwear-texture.webp.
 
-Mobile hero uses a vertical #edf2ef → #fcfcfc gradient that settles onto the studio surface before the model. Photo and stage blending is normal on phones; masks feather empty photo margins. The layout flows naturally with a 420px stage and no sticky scroll runway. Three stage buttons select the registered front/logo/back story, initially showing the product. Hide floating callouts, turn badge, stage-top labels, and scroll footer on phones; retain one caption below the model with the illustrative-branding note.
+Mobile hero uses a vertical #edf2ef → #fcfcfc gradient that settles onto the studio surface before the model. Photo and stage blending is normal on phones; masks feather empty photo margins. The layout keeps a 420px stage. Mobile scroll drives the registered front/logo/back story inside a sticky scene; its measured offset lets taller copy scroll away before holding the model in view. The gradient belongs to the sticky scene so extending the scroll runway does not shift its color stops. Three stage buttons also jump to each phase. Reduced motion keeps manual stage selection, initially showing the product. Hide floating callouts, turn badge, stage-top labels, and scroll footer on phones; retain one caption below the model with the illustrative-branding note.
+
+The visible desktop hero scene fills the first viewport below the header: 100svh minus header height (127px desktop / 116px tablet) and the existing 8px top margin, without the former 760px cap. Mobile retains its flowing content and scroll-driven stage, with a minimum scene height of the viewport minus its 106px header.
+
+The hero now uses real alpha-transparent front/back WebP cutouts (fleece-worn-blue-transparent.webp and fleece-worn-back-transparent.webp), extracted with imagegen from the supplied photos on their original 1000×1573 canvases. These supersede the earlier studio-background mask/blending approach: both model frame and stage composite normally, and photo masks are disabled to preserve hair and garment edges. Original source images remain available.
+
+The generated fabric photograph now covers the entire visible hero, including behind the alpha-transparent model, on desktop and mobile. No directional fade masks or opaque stage backgrounds interrupt this shared texture. Existing low opacity and parallax remain.
+
+The current hero model is the supplied charcoal fleece woman from herosection/ucceplipolarfume-front.png and herosection/ucceplipolarfüme-back.png, superseding the earlier blue garment. Imagegen produced identity-preserving quality-restored transparent derivatives; charcoal color, pose and garment construction remain the reference. Active assets: public/images/hero/fleece-worn-charcoal-front-transparent.webp and fleece-worn-charcoal-back-transparent.webp. Existing embroidery, parallax and scroll sequence remain.
+
+The active charcoal front/back WebP assets are compressed with TinyPNG/Tinify after quality restoration and alpha extraction. Transparent alpha and source dimensions are preserved; the compressed files are approximately 138 KB front and 191 KB back.

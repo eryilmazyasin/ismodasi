@@ -58,7 +58,7 @@
   line-height: 0.98;
 }
 .copy h1 > span {
-  color: var(--blue);
+  color: var(--ink);
   white-space: nowrap;
 }
 .copy > p {
@@ -73,6 +73,12 @@
   align-items: center;
   gap: 14px 24px;
   margin-top: 27px;
+}
+.actions > a:first-child {
+  background: var(--ink);
+}
+.actions > a:first-child:hover {
+  background: var(--interaction-hover);
 }
 .catalogLink {
   display: inline-flex;
@@ -142,7 +148,7 @@
   height: 2px;
   bottom: 0;
   width: 100%;
-  background: var(--blue);
+  background: var(--ink);
   transform: scaleX(0);
   transform-origin: left;
   z-index: 1;
@@ -156,7 +162,7 @@
   color: var(--ink);
 }
 .steps button[aria-current] .stepNumber {
-  color: var(--blue);
+  color: var(--ink);
 }
 .stage {
   --hero-surface: #e0e8e2;
@@ -264,7 +270,7 @@
   fill: #f6f7f4;
   opacity: 0;
   paint-order: stroke;
-  stroke: #d7e1ec;
+  stroke: #dfe5e1;
   stroke-width: 0.35;
 }
 .brandSubtitle {
@@ -436,7 +442,7 @@
 .swatch {
   width: 20px;
   height: 25px;
-  background: #17559d;
+  background: var(--ink);
   display: block;
   flex-shrink: 0;
   border-radius: 1px;
@@ -447,7 +453,7 @@
   font-size: 28px;
   font-weight: 400;
   line-height: 1;
-  color: var(--blue);
+  color: var(--ink);
 }
 .exampleNote {
   font-size: 8px;
@@ -931,7 +937,7 @@
   padding: 0.025em 0.17em 0.115em 0.14em;
 }
 .headlineWord {
-  background: #111111;
+  background: #000000;
   color: #ffffff;
 }
 .copy > p {
@@ -1216,4 +1222,87 @@
   .exampleNote {
     font-size: 9px;
   }
+}
+
+/* Keep the simplified mobile scene visible while scrolling through branding.
+   JS measures the sticky offset so taller copy can leave short screens first. */
+@media (max-width: 767px) and (prefers-reduced-motion: no-preference) {
+  .experience {
+    height: calc(100svh + 1200px);
+    background: #fcfcfc;
+  }
+  .sticky {
+    position: sticky;
+    top: 12px;
+    background: var(--hero-gradient);
+  }
+}
+
+/* A separate clipped layer preserves sticky scrolling and keeps the textile
+   away from the model's studio background and every interactive control. */
+.atmosphere {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  mask-image: none;
+}
+.fabricTexture {
+  position: absolute;
+  inset: -40px 0;
+  opacity: 0.38;
+}
+.fabricTexture > img {
+  object-fit: cover;
+  object-position: left center;
+}
+.layout,
+.scrollFoot {
+  z-index: 1;
+}
+@media (max-width: 767px) {
+  .atmosphere {
+    mask-image: none;
+  }
+  .fabricTexture {
+    opacity: 0.24;
+  }
+}
+
+/* Fill the first viewport below the header rather than capping the scene at
+   760px. The 8px offset is the hero's existing top margin. */
+@media (min-width: 768px) {
+  .experience {
+    --hero-header-height: 127px;
+  }
+  .sticky {
+    height: calc(100svh - var(--hero-header-height) - 8px);
+    min-height: 0;
+  }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .experience {
+    --hero-header-height: 116px;
+  }
+}
+@media (max-width: 767px) {
+  .sticky {
+    min-height: calc(100svh - 106px);
+  }
+}
+
+/* Real alpha cutouts replace the former white-studio blending workaround.
+   Keep hair and garment edges intact and preserve the photographed colors. */
+.stage,
+.modelFrame {
+  mix-blend-mode: normal;
+}
+.face > img {
+  mask-image: none;
+}
+
+/* The transparent model now sits on the same full-width textile layer as the
+   copy, including on phones where the stage formerly owned a studio surface. */
+.stage {
+  background: transparent;
 }
