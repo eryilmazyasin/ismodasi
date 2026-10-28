@@ -3,7 +3,9 @@ import {
   Phone,
 } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
+import Image from "next/image";
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
+import ContactForm from "@/components/ContactForm/ContactForm";
 import { pageMetadata, phoneHref, emailHref } from "@/lib/site";
 export const metadata = pageMetadata(
   "İletişim",
@@ -30,7 +32,20 @@ export default function ContactPage() {
             Önce ürünleri keşfedin
           </Link>
         </div>
+        <div className="contact-photo">
+          <Image
+            src="/images/contact/workwear-consultation.webp"
+            alt="Kumaş örnekleri ve iş kıyafetleri üzerinden birlikte seçim yapan iki kişinin elleri"
+            fill
+            loading="eager"
+            sizes="(max-width: 700px) 100vw, 50vw"
+          />
+        </div>
+      </div>
+      <section className="contact-inquiry" aria-label="İletişim ve talep formu">
         <div className="contact-methods">
+          <span className="section-label">DOĞRUDAN ULAŞIN</span>
+          <h2>İlk adımı birlikte atalım.</h2>
           <a href={phoneHref}>
             <Phone size={28} />
             <span>
@@ -46,11 +61,12 @@ export default function ContactPage() {
             </span>
           </a>
           <p>
-            E-postanızda firma adınızı ve ilgili ürünü belirtmeniz, ihtiyacınızı
-            daha iyi anlamamıza yardımcı olur.
+            Ürün seçimi, adet ve kurumsal uygulama ihtiyaçlarınız hakkında
+            konuşmak için bizi arayabilir veya formu doldurabilirsiniz.
           </p>
         </div>
-      </div>
+        <ContactForm />
+      </section>
     </div>
   );
 }

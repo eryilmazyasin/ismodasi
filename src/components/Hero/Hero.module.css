@@ -1256,6 +1256,29 @@
   object-fit: cover;
   object-position: left center;
 }
+/* Keep hover movement separate from the texture's scroll-driven transform.
+   Oversizing the gradient gives background-position room to travel. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .experience .sticky {
+    background-image: var(--hero-gradient);
+    background-size: 120% 100%;
+    background-position: 100% 50%;
+    background-repeat: no-repeat;
+    transition: background-position 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .experience .sticky:hover {
+    background-position: 0% 50%;
+  }
+  /* Move the visible textile as well as the subtle gradient. The enlarged
+     image covers both edges throughout the shift; GSAP still owns its parent. */
+  .fabricTexture > img {
+    transform: translateX(-22px) scale(1.08);
+    transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .sticky:hover .fabricTexture > img {
+    transform: translateX(22px) scale(1.08);
+  }
+}
 .layout,
 .scrollFoot {
   z-index: 1;
@@ -1305,4 +1328,149 @@
    copy, including on phones where the stage formerly owned a studio surface. */
 .stage {
   background: transparent;
+}
+
+/* Both cutouts share the story but keep their own registered photo frames.
+   The stage reaches the viewport edge so the polo anchors the right side. */
+@media (min-width: 768px) {
+  .sticky {
+    padding-right: 0;
+  }
+  .layout {
+    grid-template-columns: 0.96fr 1.04fr;
+  }
+  .copy h1 {
+    font-size: clamp(44px, 6.1vw, 88px);
+  }
+  .modelFrame {
+    left: 25%;
+    /* Cap width and derive height from the photo ratio; a tall, narrow frame
+       would letterbox the image and detach embroidery from the garment. */
+    width: min(58%, calc((100svh - var(--hero-header-height) - 123px) * 0.6357));
+    max-width: none;
+    height: auto;
+  }
+  .poloModel {
+    left: auto;
+    right: -3%;
+    width: min(58%, calc((100svh - var(--hero-header-height) - 123px) * 0.6357));
+    transform: translateY(-50%);
+    aspect-ratio: 1000 / 1573;
+  }
+  .stageTop,
+  .stageBottom {
+    right: 24px;
+  }
+  .stageTop > span:last-child {
+    display: none;
+  }
+  .scrollFoot {
+    padding-right: 24px;
+  }
+}
+
+.poloModel .frontBrand {
+  top: 40.35%;
+  left: 55.5%;
+  width: 21.9%;
+  transform: rotate(1deg);
+}
+.poloModel .backBrand {
+  top: 37.95%;
+  width: 48.6%;
+}
+
+/* Match the woman's visible silhouette, not just her canvas: front alpha
+   starts at 55/1576, back at 61/1573; the man's starts at 45/1536 and 37/1536.
+   Cover preserves anatomy while these small uniform corrections align the
+   head and bottom crop. Branding above follows the same image registration. */
+.poloModel .face > img {
+  object-fit: cover;
+  transform-origin: top center;
+}
+.poloModel [data-front] > img {
+  transform: translateY(0.577%) scale(0.99423);
+}
+.poloModel [data-back] > img {
+  transform: translateY(1.505%) scale(0.98495);
+}
+
+@media (max-width: 767px) {
+  .layout {
+    grid-template-rows: auto clamp(310px, 100vw, 420px);
+  }
+  .stage {
+    margin-right: -20px;
+  }
+  .modelFrame {
+    top: 0;
+    left: 25%;
+    width: 55%;
+    height: auto;
+    max-width: none;
+    aspect-ratio: 1000 / 1573;
+    transform: translateX(-50%);
+  }
+  .poloModel {
+    left: auto;
+    right: -3%;
+    aspect-ratio: 1000 / 1573;
+    transform: none;
+  }
+  .stageBottom {
+    right: 20px;
+  }
+}
+
+/* Both source photos stop at the thighs. Fade the shared registered frame
+   into the actual textile behind it so no horizontal photo edge is exposed
+   when responsive sizing leaves space above the caption. Keep the garment
+   and embroidery opaque; the shutter inherits the same natural lower edge. */
+.modelFrame {
+  /* The caption now meets the photo edge, so the former fade is unnecessary. */
+  mask-image: none;
+}
+
+/* The caption owns its natural height in the stage flow. Both photo frames
+   end exactly at that row, even when width limits make them shorter. Use the
+   photo area's available height to preserve heads without stretching images. */
+.stage {
+  display: flex;
+  flex-direction: column;
+}
+.modelStage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  container-type: size;
+}
+/* Keep explanatory labels in the lower annotation area, away from the
+   registered chest/back embroidery and its moving placement guides. */
+.modelStage .callout {
+  top: auto;
+  bottom: 18px;
+  left: 16px;
+}
+.modelFrame {
+  top: auto;
+  bottom: 0;
+  width: min(58%, calc((100cqh - 44px) * 1000 / 1573));
+  transform: translateX(-50%);
+}
+.poloModel {
+  transform: none;
+}
+.stageBottom {
+  position: relative;
+  inset: auto;
+  flex-shrink: 0;
+  margin: 0 24px 21px 26px;
+}
+@media (max-width: 767px) {
+  .modelFrame {
+    width: min(55%, calc(100cqh * 1000 / 1573));
+  }
+  .stageBottom {
+    margin: 0 20px 0 0;
+  }
 }

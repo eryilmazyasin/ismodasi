@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getCategory } from "@/lib/catalog";
-import type { ProductCardProps } from "@/lib/types";
+import type { ProductCardProps } from "@/types/types";
 export default function ProductCard({
   product,
   priority = false,
@@ -17,7 +17,7 @@ export default function ProductCard({
           src={product.image}
           alt={product.name}
           fill
-          sizes="(max-width: 640px) 46vw, (max-width: 1023px) 30vw, 23vw"
+          sizes="(max-width: 767px) calc((100vw - 54px) / 2), (max-width: 1023px) calc((100vw - 104px) / 3), (max-width: 1440px) calc((100vw - 184px) / 4), 314px"
           loading={priority ? "eager" : "lazy"}
         />
       </Link>

@@ -24,12 +24,14 @@ export default function Footer() {
         <div className="container">
           <div className="footer-grid">
             <div>
-              <Link className="brand" href="/">
-                <Image src="/images/logo.png" width={44} height={42} alt="" />
-                <span>
-                  iş modası
-                  <span className="brand-descriptor">KURUMSAL İŞ GİYİM</span>
-                </span>
+              <Link className="brand" href="/" aria-label="İş Modası ana sayfa">
+                <Image
+                  src="/images/brand/is-modasi-logo-v2.webp"
+                  width={960}
+                  height={244}
+                  sizes="(max-width: 767px) 212px, 220px"
+                  alt=""
+                />
               </Link>
               <p>
                 İşinize uygun kıyafetler.
@@ -48,6 +50,7 @@ export default function Footer() {
             </div>
             <div>
               <h3>Birlikte çalışalım</h3>
+              <Link href="/hakkimizda">Hakkımızda</Link>
               <a href={phoneHref}>
                 <Phone size={17} />
                 0536 080 1845

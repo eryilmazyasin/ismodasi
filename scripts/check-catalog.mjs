@@ -1,24 +1,35 @@
 import assert from "node:assert/strict";
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, readdirSync } from "node:fs";
+import path from "node:path";
 const { categories, products } = JSON.parse(
-  readFileSync("src/lib/catalog.json", "utf8"),
+  readFileSync("src/data/catalog.json", "utf8"),
 );
-assert.equal(products.length, 12);
-assert.equal(categories.length, 12);
-assert.equal(new Set(products.map((p) => p.slug)).size, 12);
+const sources = JSON.parse(readFileSync("src/data/catalog-sources.json", "utf8"));
+const sourceRoot = "assets/source/products/all-products";
+const sourceImages = readdirSync(sourceRoot, { recursive: true })
+  .filter((file) => /\.(png|jpe?g|webp|avif)$/i.test(file))
+  .map((file) => path.join(sourceRoot, file));
+assert.ok(products.length > 0);
+assert.ok(categories.length > 0);
+assert.equal(products.length, sourceImages.length, "Every supplied image must be imported");
+assert.equal(new Set(products.map((product) => product.slug)).size, products.length);
+assert.equal(new Set(categories.map((category) => category.slug)).size, categories.length);
+assert.deepEqual(new Set(Object.values(sources)), new Set(sourceImages));
 for (const category of categories) {
-  assert.equal(
-    products.filter((p) => p.category === category.slug).length,
-    1,
-    category.name,
-  );
-  assert.ok(!category.name.toLocaleLowerCase("tr-TR").includes("kaban"));
+  assert.ok(products.some((product) => product.category === category.slug), category.name);
+  assert.match(category.slug, /^[a-z0-9-]+$/);
 }
 for (const product of products) {
   assert.ok(existsSync(`public${product.image}`), product.image);
-  assert.ok(categories.some((c) => c.slug === product.category));
+  assert.ok(existsSync(sources[product.slug]), product.slug);
+  assert.ok(categories.some((category) => category.slug === product.category));
   assert.match(product.slug, /^[a-z0-9-]+$/);
+  assert.ok(product.image.startsWith(`/images/products/${product.category}/`));
+  assert.ok(product.image.endsWith(".webp"));
+  assert.ok(product.name.trim());
+  assert.ok(product.description.trim());
 }
-console.log(
-  "Catalog verified: 12 products, 12 categories, one product per category, all images present.",
-);
+const publishedImages = readdirSync("public/images/products", { recursive: true })
+  .filter((file) => /\.(png|jpe?g|webp|avif)$/i.test(file));
+assert.equal(publishedImages.length, products.length, "No obsolete published images should remain");
+console.log(`Catalog verified: ${products.length} products, ${categories.length} populated categories, all source images imported, no obsolete product images.`);

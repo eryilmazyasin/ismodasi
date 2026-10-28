@@ -1,9 +1,9 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { MagnifyingGlass, X, ArrowRight } from "@phosphor-icons/react";
+import { MagnifyingGlass, X, ArrowRight, CaretDown } from "@phosphor-icons/react";
 import { categories, products, normalizeSearch } from "@/lib/catalog";
 import ProductCard from "@/components/ProductCard/ProductCard";
-import type { CatalogProps } from "@/lib/types";
+import type { CatalogProps } from "@/types/types";
 export default function Catalog({
   initialCategory = "",
   compact = false,
@@ -39,6 +39,15 @@ export default function Catalog({
       (!category || product.category === category) &&
       normalizeSearch(product.name).includes(normalizeSearch(query)),
   );
+  const categoryCount = products.filter(
+    (product) => product.category === initialCategory,
+  ).length;
+  const selection = compact && !category
+    ? filtered.filter((product, index, items) =>
+        items.findIndex((item) => item.category === product.category) === index,
+      )
+    : filtered;
+  const visibleProducts = compact ? selection.slice(0, 24) : filtered;
   return (
     <section
       className={`catalog-section ${compact ? "compact" : ""}`}
@@ -55,7 +64,7 @@ export default function Catalog({
             {initialCategory
               ? categories.find((item) => item.slug === initialCategory)?.name
               : "Tüm ürünler"}{" "}
-            <span>{initialCategory ? 1 : products.length}</span>
+            <span>{initialCategory ? categoryCount : products.length}</span>
           </button>
           {!initialCategory && (
             <span className="catalog-hint">
@@ -65,7 +74,7 @@ export default function Catalog({
         </div>
         <div className="catalog-controls">
           {!initialCategory && (
-            <>
+            <div className="category-field" data-active={Boolean(category)}>
               <label className="sr-only" htmlFor="category">
                 Kategori
               </label>
@@ -81,10 +90,11 @@ export default function Catalog({
                   </option>
                 ))}
               </select>
-            </>
+              <CaretDown size={16} weight="bold" aria-hidden="true" />
+            </div>
           )}
-          <div className="search-field">
-            <MagnifyingGlass size={18} />
+          <div className="search-field" data-active={Boolean(query)}>
+            <MagnifyingGlass size={18} aria-hidden="true" />
             <label className="sr-only" htmlFor="product-search">
               Ürün ara
             </label>
@@ -97,13 +107,14 @@ export default function Catalog({
             />
             {query && (
               <button
+                type="button"
                 aria-label="Aramayı temizle"
                 onClick={() => {
                   update("", category);
                   input.current?.focus();
                 }}
               >
-                <X size={16} />
+                <X size={16} aria-hidden="true" />
               </button>
             )}
           </div>
@@ -111,13 +122,16 @@ export default function Catalog({
       </div>
       <div className="result-line" role="status">
         {filtered.length} ürün
+        {compact && filtered.length > visibleProducts.length
+          ? ` · ${visibleProducts.length} ürün gösteriliyor`
+          : ""}
         {category && !initialCategory
           ? ` · ${categories.find((item) => item.slug === category)?.name || "Kategori bulunamadı"}`
           : ""}
       </div>
       {filtered.length ? (
         <div className="product-grid">
-          {filtered.map((product) => (
+          {visibleProducts.map((product) => (
             <ProductCard key={product.slug} product={product} />
           ))}
         </div>

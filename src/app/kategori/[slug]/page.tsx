@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
 import Catalog from "@/components/Catalog/Catalog";
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
-import { categories, getCategory } from "@/lib/catalog";
+import { categories, products, getCategory } from "@/lib/catalog";
 import { pageMetadata } from "@/lib/site";
-import type { SlugPageProps } from "@/lib/types";
+import type { SlugPageProps } from "@/types/types";
 export const dynamicParams = false;
 export function generateStaticParams() {
   return categories.map(({ slug }) => ({ slug }));
@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: SlugPageProps) {
     category.name,
     category.description,
     `/kategori/${slug}`,
-    `/images/${slug}.png`,
+    products.find((product) => product.category === slug)?.image,
   );
 }
 export default async function CategoryPage({ params }: SlugPageProps) {

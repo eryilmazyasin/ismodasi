@@ -1,5 +1,5 @@
-import data from "./catalog.json";
-import type { Category, Product } from "./types";
+import data from "@/data/catalog.json";
+import type { Category, Product } from "@/types/types";
 export const categories: Category[] = data.categories;
 export const products: Product[] = data.products;
 export const groups = [

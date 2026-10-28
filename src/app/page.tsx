@@ -3,12 +3,16 @@ import Link from "next/link";
 import Catalog from "@/components/Catalog/Catalog";
 import Hero from "@/components/Hero/Hero";
 import { pageMetadata } from "@/lib/site";
+import { products } from "@/lib/catalog";
 export const metadata = pageMetadata(
   "Ekibiniz için iş kıyafetleri",
   "İş Modası ile iş montları, pantolonlar, yelekler ve koruyucu ekipmanları keşfedin. Kurumsal iş giyim ihtiyaçlarınız için iletişime geçin.",
   "/",
 );
 export default function Home() {
+  const storyProduct = products.find(
+    (product) => product.category === "muhendis-yelegi",
+  ) || products[0];
   return (
     <>
       <Hero />
@@ -44,8 +48,8 @@ export default function Home() {
       <section className="container workwear-story">
         <div className="story-image">
           <Image
-            src="/images/muhendis-yelegi.png"
-            alt="Sarı lacivert mühendis yeleği"
+            src={storyProduct.image}
+            alt={storyProduct.name}
             fill
             sizes="(max-width: 767px) 90vw, 40vw"
           />

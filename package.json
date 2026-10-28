@@ -6,7 +6,8 @@
     "dev": "next dev --hostname 0.0.0.0",
     "build": "next build --webpack",
     "start": "next start --hostname 0.0.0.0",
-    "check:catalog": "node scripts/check-catalog.mjs"
+    "check:catalog": "node scripts/check-catalog.mjs",
+    "import:catalog": "node scripts/import-catalog.mjs"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",

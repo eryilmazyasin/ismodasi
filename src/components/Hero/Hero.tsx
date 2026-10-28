@@ -6,7 +6,7 @@ import { useLayoutEffect, useRef, useState } from "react";
 import { ArrowDown, ArrowRight, ArrowUpRight } from "@phosphor-icons/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import HeroBrand from "./HeroBrand";
+import HeroModel from "./HeroModel";
 import type { HeroNavigation } from "./Hero.types";
 import styles from "./Hero.module.css";
 
@@ -121,10 +121,8 @@ export default function Hero() {
             : {}),
         });
 
-        const frontBrand =
-          element.querySelector<HTMLElement>("[data-brand-front]")!;
-        const backBrand =
-          element.querySelector<HTMLElement>("[data-brand-back]")!;
+        // Measure each model's own frame so embroidery and the shutter stay
+        // registered even when their responsive dimensions differ.
         // Reuse the story's scroll progress; the decorative layer never moves
         // the headline or adds a second scroll listener.
         if (animated)
@@ -153,7 +151,7 @@ export default function Hero() {
           .set(select("[data-brand-front] [data-needle]"), { opacity: 1 }, 0.24)
           .to(
             select("[data-brand-front] [data-needle]"),
-            { x: () => frontBrand.clientWidth, duration: 0.17 },
+            { x: (_index, target: HTMLElement) => target.parentElement!.clientWidth, duration: 0.17 },
             0.24,
           )
           .to(
@@ -190,9 +188,7 @@ export default function Hero() {
           .to(
             select("[data-turn-line]"),
             {
-              x: () =>
-                element.querySelector<HTMLElement>(`.${styles.modelFrame}`)!
-                  .clientWidth,
+              x: (_index, target: HTMLElement) => target.parentElement!.clientWidth,
               duration: 0.24,
             },
             0.56,
@@ -223,7 +219,7 @@ export default function Hero() {
           )
           .to(
             select("[data-brand-back] [data-needle]"),
-            { x: () => backBrand.clientWidth, duration: 0.12 },
+            { x: (_index, target: HTMLElement) => target.parentElement!.clientWidth, duration: 0.12 },
             0.83,
           )
           .to(
@@ -345,71 +341,43 @@ export default function Hero() {
           </div>
           <figure
             className={styles.stage}
-            aria-label="Aynı füme poların önüne temsili logo, sırtına firma adı işlenir. Kişiselleştirme aşamalarında ön ve sırt görünümünü keşfedin."
+            aria-label="Füme polarlı kadın ve kısa kollu mavi polo tişörtlü erkek model yan yana. Her iki üründe scroll ile göğüs logosu, arka görünüm ve temsili firma adı işlemesini keşfedin."
           >
             <div className={styles.stageTop}>
               <span>EKİBİNİZE ÖZEL İŞ GİYİM.</span>
               <span>İş Modası</span>
             </div>
-            <div className={styles.modelFrame}>
-              <div className={styles.face} data-front aria-hidden="true">
-                <Image
-                  src="/images/hero/fleece-worn-charcoal-front-transparent.webp"
-                  alt=""
-                  fill
-                  sizes="(max-width: 767px) 68vw, 35vw"
-                  loading="eager"
-                  fetchPriority="high"
-                />
-                <HeroBrand />
-              </div>
+            <div className={styles.modelStage}>
+              <HeroModel model="fleece" />
+              <HeroModel model="polo" />
               <div
-                className={`${styles.face} ${styles.backFace}`}
-                data-back
+                className={styles.callout}
+                data-callout
+                data-front-callout
                 aria-hidden="true"
               >
-                <Image
-                  src="/images/hero/fleece-worn-charcoal-back-transparent.webp"
-                  alt=""
-                  fill
-                  sizes="(max-width: 767px) 68vw, 35vw"
-                  loading="eager"
-                />
-                <HeroBrand back />
+                <span>GÖĞÜS</span>
+                <strong>Logo işlemesi</strong>
+                <i />
               </div>
-              <span
-                className={styles.turnLine}
-                data-turn-line
+              <div
+                className={`${styles.callout} ${styles.backCallout}`}
+                data-callout
+                data-back-callout
                 aria-hidden="true"
-              />
-            </div>
-            <div
-              className={styles.callout}
-              data-callout
-              data-front-callout
-              aria-hidden="true"
-            >
-              <span>GÖĞÜS</span>
-              <strong>Logo işlemesi</strong>
-              <i />
-            </div>
-            <div
-              className={`${styles.callout} ${styles.backCallout}`}
-              data-callout
-              data-back-callout
-              aria-hidden="true"
-            >
-              <span>SIRT</span>
-              <strong>Firma adı</strong>
-              <i />
-            </div>
-            <div
-              className={styles.turnGuide}
-              data-turn-guide
-              aria-hidden="true"
-            >
-              <span className={styles.turnRing} data-turn-ring />
-              <span>180°</span>
+              >
+                <span>SIRT</span>
+                <strong>Firma adı</strong>
+                <i />
+              </div>
+              <div
+                className={styles.turnGuide}
+                data-turn-guide
+                aria-hidden="true"
+              >
+                <span className={styles.turnRing} data-turn-ring />
+                <span>180°</span>
+              </div>
             </div>
             <figcaption className={styles.stageBottom}>
               <div className={styles.captionStack}>

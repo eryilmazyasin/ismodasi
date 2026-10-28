@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import { siteUrl } from "@/lib/site";
-import type { ChildrenProps } from "@/lib/types";
+import type { ChildrenProps } from "@/types/types";
 import "./globals.css";
 const barlow = localFont({
   src: [
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
   description:
     "Ekibiniz için iş kıyafetleri ve koruyucu ekipman. İş Modası ürün kataloğunu inceleyin, kurumsal ihtiyaçlarınız için bizimle iletişime geçin.",
-  icons: { icon: "/images/logo.png" },
+  icons: { icon: "/images/brand/icon.png" },
 };
 export default function RootLayout({ children }: ChildrenProps) {
   return (

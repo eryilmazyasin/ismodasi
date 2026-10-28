@@ -2,9 +2,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { CaretDown, List, X, Phone } from "@phosphor-icons/react";
+import { CaretDown, List, X, Phone, WhatsappLogo } from "@phosphor-icons/react";
 import { categories, groups } from "@/lib/catalog";
-import { phoneHref } from "@/lib/site";
+import { phoneHref, whatsappHref } from "@/lib/site";
 export default function Header() {
   const [open, setOpen] = useState<string | null>(null);
   const [mobile, setMobile] = useState(false);
@@ -51,10 +51,15 @@ export default function Header() {
     >
       <div className="utility-bar">
         <div className="container utility-inner">
-          <span>Ekibiniz için, işinize uygun.</span>
-          <a href={phoneHref}>
-            <Phone size={13} /> 0536 080 1845
-          </a>
+          <span>Ekibiniz için iş kıyafetleri ve iş güvenliği ürünleri.</span>
+          <div className="utility-contact">
+            <a href={phoneHref}>
+              <Phone size={13} aria-hidden="true" /> 0536 080 1845
+            </a>
+            <a href={whatsappHref} target="_blank" rel="noopener noreferrer">
+              <WhatsappLogo size={15} aria-hidden="true" /> WhatsApp
+            </a>
+          </div>
         </div>
       </div>
       <div className="container header-inner">
@@ -65,15 +70,13 @@ export default function Header() {
           aria-label="İş Modası ana sayfa"
         >
           <Image
-            src="/images/logo.png"
-            width={49}
-            height={47}
+            src="/images/brand/is-modasi-logo-v2.webp"
+            width={960}
+            height={244}
+            sizes="(max-width: 767px) 212px, (max-width: 1150px) 220px, 240px"
             alt=""
             loading="eager"
           />
-          <span>
-            iş modası<span className="brand-descriptor">KURUMSAL İŞ GİYİM</span>
-          </span>
         </Link>
         <button
           ref={mobileButton}

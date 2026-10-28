@@ -10,7 +10,7 @@ import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import ProductCard from "@/components/ProductCard/ProductCard";
 import { products, getProduct, getCategory } from "@/lib/catalog";
 import { pageMetadata, siteUrl, productInquiry, phoneHref } from "@/lib/site";
-import type { SlugPageProps } from "@/lib/types";
+import type { SlugPageProps } from "@/types/types";
 export const dynamicParams = false;
 export function generateStaticParams() {
   return products.map(({ slug }) => ({ slug }));
@@ -39,13 +39,18 @@ export default async function ProductPage({ params }: SlugPageProps) {
     image: `${siteUrl}${product.image}`,
     url: `${siteUrl}/urun/${slug}`,
     category: category.name,
-    color: product.color,
+    color: product.color || undefined,
   };
   const related = products
     .filter(
       (item) =>
         item.slug !== slug &&
         getCategory(item.category)?.group === category.group,
+    )
+    .sort(
+      (a, b) =>
+        Number(b.category === product.category) -
+        Number(a.category === product.category),
     )
     .slice(0, 4);
   return (
@@ -74,10 +79,12 @@ export default async function ProductPage({ params }: SlugPageProps) {
           <h1>{product.name}</h1>
           <p className="detail-description">{product.description}</p>
           <dl className="product-spec">
-            <div>
-              <dt>Renk</dt>
-              <dd>{product.color}</dd>
-            </div>
+            {product.color && (
+              <div>
+                <dt>Renk</dt>
+                <dd>{product.color}</dd>
+              </div>
+            )}
             <div>
               <dt>Kategori</dt>
               <dd>{category.name}</dd>

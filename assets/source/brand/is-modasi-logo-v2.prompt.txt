@@ -1,0 +1,5 @@
+Tool: built-in image_gen
+Output: is-modasi-logo-v2.png
+Reference: user-supplied logo screenshot
+Design brief: Preserve the blue hanger, orange shirt and diagonal sewing needle symbol on the left. Redesign the exact lowercase Turkish wordmark “iş modası” as bespoke, medium-bold geometric humanist lettering with tailored terminals and optical kerning. Use deep charcoal #202725 for the wordmark and muted slate petrol #536b70 for the tracked subtitle “KURUMSAL İŞ GİYİM”. Create one crisp, flat horizontal lockup on a transparent background. No gradients, shadows, mockups, additional text or decoration. Intended for website identity and future business-card adaptation.
+Format note: Raster PNG; not a vector master or print-ready CMYK artwork.

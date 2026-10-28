@@ -1,7 +1,9 @@
+import { useId } from "react";
 import type { HeroBrandProps } from "./Hero.types";
 import styles from "./Hero.module.css";
 
 export default function HeroBrand({ back = false }: HeroBrandProps) {
+  const threadId = useId();
   return (
     <div
       className={back ? styles.backBrand : styles.frontBrand}
@@ -16,7 +18,7 @@ export default function HeroBrand({ back = false }: HeroBrandProps) {
         >
           <defs>
             <pattern
-              id={back ? "back-thread" : "front-thread"}
+              id={threadId}
               width="4"
               height="4"
               patternUnits="userSpaceOnUse"
@@ -53,7 +55,7 @@ export default function HeroBrand({ back = false }: HeroBrandProps) {
             textAnchor="middle"
             className={styles.brandTexture}
             data-ink
-            fill={`url(#${back ? "back-thread" : "front-thread"})`}
+            fill={`url(#${threadId})`}
           >
             {back ? "FİRMA ADINIZ" : "FİRMA"}
           </text>

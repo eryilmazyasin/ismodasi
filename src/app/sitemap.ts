@@ -5,6 +5,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     "/",
     "/urunler",
+    "/hakkimizda",
     "/iletisim",
     ...categories.map((item) => `/kategori/${item.slug}`),
     ...products.map((item) => `/urun/${item.slug}`),

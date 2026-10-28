@@ -1,0 +1,128 @@
+[
+  {
+    "folder": "İŞ MONTU",
+    "slug": "is-montu",
+    "name": "İş Montu",
+    "group": "İş Kıyafetleri"
+  },
+  {
+    "folder": "MÜHENDİS YELEĞİ",
+    "slug": "muhendis-yelegi",
+    "name": "Mühendis Yeleği",
+    "group": "Yüksek Görünürlük"
+  },
+  {
+    "folder": "Likralı İş PantolonlarI",
+    "slug": "likrali-is-pantolonlari",
+    "name": "Likralı İş Pantolonları",
+    "group": "İş Kıyafetleri"
+  },
+  {
+    "folder": "POLO TSHİRT",
+    "slug": "polo-tisort",
+    "name": "Polo Tişört",
+    "group": "İş Kıyafetleri"
+  },
+  {
+    "folder": "POLAR",
+    "slug": "polar",
+    "name": "Polar",
+    "group": "İş Kıyafetleri"
+  },
+  {
+    "folder": "Rüzgar Geçirmeyen Mont",
+    "slug": "softshell-mont",
+    "name": "Rüzgar Geçirmeyen Mont",
+    "group": "İş Kıyafetleri"
+  },
+  {
+    "folder": "Reflektörlü Pantolon",
+    "slug": "reflektorlu-pantolon",
+    "name": "Reflektörlü Pantolon",
+    "group": "Yüksek Görünürlük"
+  },
+  {
+    "folder": "HI-VIS Sweatshirt",
+    "slug": "hi-vis-sweatshirt",
+    "name": "Hi-Vis Sweatshirt",
+    "group": "Yüksek Görünürlük"
+  },
+  {
+    "folder": "İKAZ YELEĞİ",
+    "slug": "ikaz-yelegi",
+    "name": "İkaz Yeleği",
+    "group": "Yüksek Görünürlük"
+  },
+  {
+    "folder": "KAFA KORUMA",
+    "slug": "kafa-koruma",
+    "name": "Kafa Koruma",
+    "group": "Koruyucu Ekipman"
+  },
+  {
+    "folder": "POLAR BOYUNLUK",
+    "slug": "polar-boyunluk",
+    "name": "Polar Boyunluk",
+    "group": "Koruyucu Ekipman"
+  },
+  {
+    "folder": "POLAR ELDİVEN",
+    "slug": "polar-eldiven",
+    "name": "Polar Eldiven",
+    "group": "Koruyucu Ekipman"
+  },
+  {
+    "folder": "POLO TSHİRT KISA KOL",
+    "name": "Kısa Kollu Polo Tişört",
+    "slug": "kisa-kollu-polo-tisort",
+    "group": "İş Kıyafetleri"
+  },
+  {
+    "folder": "ÇİZME",
+    "name": "Çizme",
+    "slug": "cizme",
+    "group": "Koruyucu Ekipman"
+  },
+  {
+    "folder": "ELDİVEN",
+    "name": "Eldiven",
+    "slug": "eldiven",
+    "group": "Koruyucu Ekipman"
+  },
+  {
+    "folder": "EMNİYET KEMERLERİ",
+    "name": "Emniyet Kemerleri",
+    "slug": "emniyet-kemerleri",
+    "group": "Koruyucu Ekipman"
+  },
+  {
+    "folder": "GÖZ VE YÜZ KORUMA",
+    "name": "Göz ve Yüz Koruma",
+    "slug": "goz-ve-yuz-koruma",
+    "group": "Koruyucu Ekipman"
+  },
+  {
+    "folder": "İŞİTME KORUMA",
+    "name": "İşitme Koruma",
+    "slug": "isitme-koruma",
+    "group": "Koruyucu Ekipman"
+  },
+  {
+    "folder": "SOLUNUM KORUYUCU",
+    "name": "Solunum Koruyucu",
+    "slug": "solunum-koruyucu",
+    "group": "Koruyucu Ekipman"
+  },
+  {
+    "folder": "YDS İŞ AYAKKABISI",
+    "name": "YDS İş Ayakkabısı",
+    "slug": "yds-is-ayakkabisi",
+    "group": "Koruyucu Ekipman"
+  },
+  {
+    "folder": "KABAN",
+    "name": "Kaban",
+    "slug": "kaban",
+    "group": "İş Kıyafetleri"
+  }
+]

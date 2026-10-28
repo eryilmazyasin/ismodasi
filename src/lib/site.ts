@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import { products } from "@/lib/catalog";
 export const siteUrl = new URL(
   process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
 ).origin;
 export const phoneHref = "tel:+905360801845";
+export const whatsappHref = "https://wa.me/905360801845";
 export const emailHref = "mailto:info@ismodasi.com";
 export function productInquiry(name: string, slug: string) {
   const subject = `${name} — Ürün bilgi talebi`;
@@ -13,7 +15,7 @@ export function pageMetadata(
   title: string,
   description: string,
   path: string,
-  image = "/images/is-montu.png",
+  image = products[0]?.image || "/images/brand/logo.webp",
 ): Metadata {
   return {
     title: { absolute: `${title} | İş Modası` },

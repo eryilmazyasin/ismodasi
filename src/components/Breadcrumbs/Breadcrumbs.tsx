@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { CaretRight } from "@phosphor-icons/react/dist/ssr";
 import { siteUrl } from "@/lib/site";
-import type { BreadcrumbItem } from "@/lib/types";
+import type { BreadcrumbItem } from "@/types/types";
 export default function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
   const all = [{ label: "Ana sayfa", href: "/" }, ...items];
   const schema = {
