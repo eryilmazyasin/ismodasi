@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Catalog from "@/components/Catalog/Catalog";
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import { categories, products, getCategory } from "@/lib/catalog";
-import { pageMetadata } from "@/lib/site";
+import { pageMetadata } from "@/lib/metadata";
 import type { SlugPageProps } from "@/types/types";
 export const dynamicParams = false;
 export function generateStaticParams() {

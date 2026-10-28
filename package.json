@@ -3,11 +3,15 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "predev": "node scripts/prepare-static.mjs",
     "dev": "next dev --hostname 0.0.0.0",
     "build": "next build --webpack",
-    "start": "next start --hostname 0.0.0.0",
+    "start": "wrangler pages dev out --ip 127.0.0.1 --compatibility-date=2026-10-23",
     "check:catalog": "node scripts/check-catalog.mjs",
-    "import:catalog": "node scripts/import-catalog.mjs"
+    "import:catalog": "node scripts/import-catalog.mjs",
+    "prebuild": "node scripts/prepare-static.mjs",
+    "postbuild": "npm run check:static",
+    "check:static": "node scripts/check-static.mjs"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
@@ -21,7 +25,9 @@
     "@types/node": "^24.0.0",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
+    "sharp": "^0.35.5",
     "tailwindcss": "^4.1.0",
-    "typescript": "^5.9.0"
+    "typescript": "^5.9.0",
+    "wrangler": "^4.155.0"
   }
 }

@@ -28,7 +28,8 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: ChildrenProps) {
   return (
     <html lang="tr" className={barlow.variable} data-scroll-behavior="smooth">
-      <body>
+      {/* Browser extensions may add body attributes before React hydrates. */}
+      <body suppressHydrationWarning>
         <a className="skip-link" href="#main">
           İçeriğe geç
         </a>

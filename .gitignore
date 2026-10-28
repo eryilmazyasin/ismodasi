@@ -6,3 +6,7 @@ node_modules/
 output/
 *.tsbuildinfo
 .playwright-cli/
+out/
+.wrangler/
+public/images/responsive/
+public/_redirects

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Catalog from "@/components/Catalog/Catalog";
 import Hero from "@/components/Hero/Hero";
-import { pageMetadata } from "@/lib/site";
+import { pageMetadata } from "@/lib/metadata";
 import { products } from "@/lib/catalog";
 export const metadata = pageMetadata(
   "Ekibiniz için iş kıyafetleri",

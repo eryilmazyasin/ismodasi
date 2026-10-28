@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChatsCircle, TShirt, ListChecks } from "@phosphor-icons/react/dist/ssr";
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
-import { pageMetadata } from "@/lib/site";
+import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata(
   "Hakkımızda",

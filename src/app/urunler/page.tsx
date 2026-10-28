@@ -1,6 +1,6 @@
 import Catalog from "@/components/Catalog/Catalog";
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
-import { pageMetadata } from "@/lib/site";
+import { pageMetadata } from "@/lib/metadata";
 export const metadata = pageMetadata(
   "Tüm ürünler",
   "İş Modası iş kıyafetleri ve koruyucu ekipman koleksiyonu. Ürünleri kategoriye göre inceleyin.",

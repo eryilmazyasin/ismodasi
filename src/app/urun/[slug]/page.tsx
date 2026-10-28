@@ -9,7 +9,8 @@ import {
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import ProductCard from "@/components/ProductCard/ProductCard";
 import { products, getProduct, getCategory } from "@/lib/catalog";
-import { pageMetadata, siteUrl, productInquiry, phoneHref } from "@/lib/site";
+import { pageMetadata } from "@/lib/metadata";
+import { siteUrl, productInquiry, phoneHref } from "@/lib/site";
 import type { SlugPageProps } from "@/types/types";
 export const dynamicParams = false;
 export function generateStaticParams() {

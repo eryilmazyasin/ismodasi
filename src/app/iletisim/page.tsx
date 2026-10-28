@@ -6,7 +6,8 @@ import Link from "next/link";
 import Image from "next/image";
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import ContactForm from "@/components/ContactForm/ContactForm";
-import { pageMetadata, phoneHref, emailHref } from "@/lib/site";
+import { pageMetadata } from "@/lib/metadata";
+import { phoneHref, emailHref } from "@/lib/site";
 export const metadata = pageMetadata(
   "İletişim",
   "İş Modası kurumsal iş kıyafeti talepleriniz için 0536 080 1845 ve info@ismodasi.com üzerinden bize ulaşın.",

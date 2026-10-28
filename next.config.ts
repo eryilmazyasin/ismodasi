@@ -1,13 +1,13 @@
 import type { NextConfig } from "next";
-import catalog from "./src/data/catalog.json";
+import imageSizes from "./src/data/image-sizes.json";
 const nextConfig: NextConfig = {
   devIndicators: false,
-  async redirects() {
-    return catalog.categories.map((category) => ({
-      source: `/urun/${category.slug}`,
-      destination: `/kategori/${category.slug}`,
-      permanent: true,
-    }));
+  poweredByHeader: false,
+  output: "export",
+  images: {
+    loader: "custom",
+    loaderFile: "./src/lib/image-loader.ts",
+    ...imageSizes,
   },
 };
 export default nextConfig;
