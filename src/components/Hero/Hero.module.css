@@ -1,0 +1,1219 @@
+.experience {
+  --hero-gradient: linear-gradient(
+    to left,
+    #fafbfa 0%,
+    #fafbfa 42%,
+    #edf2ef 64%,
+    #dfe8e3 100%
+  );
+  width: 100%;
+  background: var(--hero-gradient);
+  position: relative;
+  margin-top: 8px;
+  margin-bottom: 34px;
+}
+.sticky {
+  padding-inline: max(56px, calc((100% - 1328px) / 2));
+  position: relative;
+  height: min(760px, calc(100svh - 150px));
+  min-height: 510px;
+  display: flex;
+  flex-direction: column;
+}
+.layout {
+  position: relative;
+  display: grid;
+  grid-template-columns: 0.94fr 1.06fr;
+  gap: 36px;
+  flex: 1;
+  min-height: 0;
+}
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 28px 0 12px;
+  min-width: 0;
+}
+.eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.65px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.eyebrow::before {
+  content: "";
+  width: 17px;
+  height: 2px;
+  background: var(--accent);
+}
+.copy h1 {
+  font-size: clamp(60px, 5.5vw, 80px);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+}
+.copy h1 > span {
+  color: var(--blue);
+  white-space: nowrap;
+}
+.copy > p {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--muted);
+  margin-top: 23px;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 24px;
+  margin-top: 27px;
+}
+.catalogLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  padding: 5px 0;
+  color: var(--muted);
+}
+.catalogLink:hover {
+  color: var(--interaction-hover);
+}
+.steps {
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: 100%;
+  gap: 15px;
+  margin-top: auto;
+  padding-top: 50px;
+  margin-bottom: 0;
+}
+.steps li {
+  min-width: 0;
+}
+.steps button {
+  position: relative;
+  background: transparent;
+  border: 0;
+  text-align: left;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px 0 19px;
+  width: 100%;
+  color: var(--muted);
+}
+.steps button::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  height: 1px;
+  background: var(--line);
+}
+.stepNumber {
+  font-size: 10px;
+  padding-top: 4px;
+  color: var(--muted);
+}
+.steps strong {
+  display: block;
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--muted);
+}
+.steps small {
+  display: block;
+  font-size: 10px;
+  margin-top: 3px;
+  white-space: nowrap;
+}
+.stepLine {
+  position: absolute;
+  height: 2px;
+  bottom: 0;
+  width: 100%;
+  background: var(--blue);
+  transform: scaleX(0);
+  transform-origin: left;
+  z-index: 1;
+  transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.steps button[aria-current] .stepLine {
+  transform: scaleX(1);
+}
+.steps button[aria-current] strong,
+.steps button:hover strong {
+  color: var(--ink);
+}
+.steps button[aria-current] .stepNumber {
+  color: var(--blue);
+}
+.stage {
+  --hero-surface: #e0e8e2;
+  position: relative;
+  margin: 0;
+  background: transparent;
+  overflow: hidden;
+  min-height: 0;
+  isolation: auto;
+}
+.stage::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100px;
+  height: 3px;
+  background: var(--accent);
+}
+.stageTop {
+  position: absolute;
+  top: 24px;
+  left: 26px;
+  right: 26px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  font-size: 9px;
+  letter-spacing: 1.35px;
+  color: #626c65;
+  z-index: 3;
+}
+.stageTop > span:last-child {
+  font-size: 13px;
+  letter-spacing: -0.2px;
+}
+.modelFrame {
+  position: absolute;
+  height: calc(100% - 60px);
+  max-width: 96%;
+  aspect-ratio: 1000 / 1573;
+  left: 50%;
+  top: 49%;
+  transform: translate(-50%, -50%);
+  perspective: 1400px;
+  container-type: inline-size;
+}
+.face {
+  position: absolute;
+  inset: 0;
+  transform-origin: center;
+  backface-visibility: hidden;
+}
+.face > img {
+  object-fit: contain;
+}
+.backFace {
+  opacity: 0;
+}
+.frontBrand,
+.backBrand {
+  position: absolute;
+  text-align: center;
+  color: #fff;
+}
+.frontBrand {
+  top: 43%;
+  left: 25%;
+  width: 22%;
+  transform: rotate(-2deg);
+}
+.backBrand {
+  top: 41.5%;
+  left: 50%;
+  width: 44%;
+  transform: translateX(-50%) rotate(0.5deg);
+}
+.brandReveal {
+  clip-path: inset(0 100% 0 0);
+}
+.brandLetters {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+.brandLetters text {
+  font-size: 57px;
+  font-weight: 700;
+  font-family: var(--font-barlow), Arial, sans-serif;
+  letter-spacing: 1px;
+}
+.frontBrand .brandLetters text {
+  font-size: 79px;
+}
+.thread {
+  fill: none;
+  stroke: #f5f6f4;
+  stroke-width: 1.1;
+  stroke-dasharray: 180;
+  stroke-dashoffset: 180;
+}
+.brandInk {
+  fill: #f6f7f4;
+  opacity: 0;
+  paint-order: stroke;
+  stroke: #d7e1ec;
+  stroke-width: 0.35;
+}
+.brandSubtitle {
+  display: block;
+  font-size: 1.6cqw;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  line-height: 1;
+  margin-top: -0.7cqw;
+  opacity: 0;
+}
+.frontBrand .brandSubtitle {
+  font-size: 1.6cqw;
+  letter-spacing: 0.2em;
+}
+.brandGuide {
+  position: absolute;
+  inset: -6px;
+  border: 1px dashed #f1f5f099;
+  opacity: 0;
+}
+.brandGuide::before,
+.brandGuide::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--accent);
+}
+.brandGuide::before {
+  left: -2px;
+  top: -2px;
+}
+.brandGuide::after {
+  bottom: -2px;
+  right: -2px;
+}
+.stitchNeedle {
+  position: absolute;
+  top: -6px;
+  bottom: -6px;
+  left: 0;
+  width: 1px;
+  background: var(--accent-light);
+  opacity: 0;
+  box-shadow: 0 0 6px var(--accent-glow);
+}
+.stitchNeedle::before {
+  content: "";
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  top: -2px;
+  left: -2px;
+  background: var(--accent);
+}
+.callout {
+  position: absolute;
+  top: 46%;
+  left: 24px;
+  font-size: 9px;
+  color: var(--ink);
+  opacity: 0;
+  z-index: 3;
+}
+.callout span {
+  font-size: 8px;
+  letter-spacing: 1.3px;
+  color: var(--muted);
+  display: block;
+}
+.callout strong {
+  display: block;
+  font-weight: 500;
+  font-size: 11px;
+  margin-top: 5px;
+}
+.callout i {
+  display: block;
+  width: 64px;
+  height: 1px;
+  background: #a7b8a5;
+  margin-top: 9px;
+  position: relative;
+}
+.callout i::after {
+  content: "";
+  position: absolute;
+  right: -2px;
+  top: -2px;
+  width: 5px;
+  height: 5px;
+  border: 1px solid #8fa68c;
+  border-radius: 50%;
+  background: var(--hero-surface);
+}
+.backCallout {
+  top: 50%;
+}
+.turnGuide {
+  position: absolute;
+  bottom: 15%;
+  left: 26px;
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  color: var(--muted);
+  font-size: 10px;
+}
+.turnRing {
+  position: absolute;
+  inset: 0;
+  border: 1px solid #b6c5b2;
+  border-top-color: var(--accent);
+  border-right-color: var(--accent);
+  border-radius: 50%;
+}
+.turnRing::after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  background: var(--accent);
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  border-radius: 50%;
+}
+.stageBottom {
+  position: absolute;
+  bottom: 21px;
+  left: 26px;
+  right: 26px;
+  z-index: 3;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 15px;
+}
+.captionStack {
+  position: relative;
+  height: 39px;
+  flex: 1;
+}
+.captionStack > div {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+.captionStack small {
+  display: block;
+  color: #626c65;
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  margin-bottom: 5px;
+}
+.captionStack strong {
+  font-weight: 500;
+  font-size: 14px;
+  display: block;
+  white-space: nowrap;
+}
+.swatch {
+  width: 20px;
+  height: 25px;
+  background: #17559d;
+  display: block;
+  flex-shrink: 0;
+  border-radius: 1px;
+  border: 3px solid #fff;
+  outline: 1px solid #d0d8d0;
+}
+.signature {
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--blue);
+}
+.exampleNote {
+  font-size: 8px;
+  color: #626c65;
+  white-space: nowrap;
+  padding-bottom: 3px;
+}
+.experience[data-phase="0"] [data-caption="0"],
+.experience[data-phase="1"] [data-caption="1"],
+.experience[data-phase="2"] [data-caption="2"],
+.experience[data-phase="3"] [data-caption="3"] {
+  opacity: 1;
+}
+.scrollFoot {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 43px;
+  font-size: 10px;
+  color: var(--muted);
+  gap: 20px;
+}
+.scrollCue {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.finishCue {
+  display: none;
+}
+.experience[data-phase="3"] .scrollCue {
+  display: none;
+}
+.experience[data-phase="3"] .finishCue {
+  display: block;
+}
+@media (prefers-reduced-motion: no-preference) and (min-height: 700px) {
+  .experience {
+    height: 250svh;
+  }
+  .sticky {
+    position: sticky;
+    top: 24px;
+  }
+}
+@media (max-width: 1150px) {
+  .layout {
+    gap: 25px;
+  }
+  .copy h1 {
+    font-size: 64px;
+  }
+  .copy > p {
+    font-size: 14px;
+  }
+  .eyebrow {
+    font-size: 9px;
+    letter-spacing: 1.1px;
+  }
+  .steps {
+    gap: 10px;
+    padding-top: 30px;
+  }
+  .steps button {
+    gap: 6px;
+  }
+  .steps small {
+    font-size: 9px;
+  }
+  .stageTop {
+    left: 20px;
+    right: 20px;
+    font-size: 8px;
+  }
+  .stageBottom {
+    left: 20px;
+    right: 20px;
+  }
+  .exampleNote {
+    font-size: 7px;
+  }
+  .captionStack strong {
+    font-size: 12px;
+  }
+}
+@media (min-width: 768px) and (max-width: 900px) {
+  .copy h1 {
+    font-size: 52px;
+  }
+  .steps small {
+    white-space: normal;
+  }
+  .steps strong {
+    font-size: 13px;
+  }
+  .steps button {
+    flex-direction: column;
+    gap: 2px;
+  }
+  .captionStack .swatch {
+    display: none;
+  }
+  .stageTop > span:last-child {
+    display: none;
+  }
+  .exampleNote {
+    display: none;
+  }
+}
+@media (max-width: 767px) {
+  .experience {
+    margin-top: 0;
+    margin-bottom: 22px;
+  }
+  .sticky {
+    height: calc(100svh - 125px);
+    min-height: 535px;
+  }
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: 18px;
+  }
+  .copy {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 12px 0 0;
+  }
+  .eyebrow {
+    font-size: 8px;
+    margin-bottom: 14px;
+    gap: 8px;
+  }
+  .eyebrow::before {
+    width: 12px;
+  }
+  .copy h1 {
+    font-size: clamp(44px, 12vw, 66px);
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+  }
+  .copy > p {
+    font-size: 12px;
+    line-height: 1.65;
+    margin-top: 12px;
+  }
+  .actions {
+    margin-top: 15px;
+    flex-direction: row;
+    align-items: center;
+    gap: 17px;
+  }
+  .actions > a:first-child {
+    font-size: 11px;
+    min-height: 41px;
+    gap: 12px;
+    padding: 10px 13px;
+  }
+  .catalogLink {
+    font-size: 10px;
+    gap: 6px;
+  }
+  .catalogLink svg {
+    width: 12px;
+  }
+  .steps {
+    margin-top: 0;
+    padding-top: 12px;
+    gap: 12px;
+  }
+  .steps button {
+    gap: 7px;
+    padding: 9px 0 10px;
+  }
+  .stepNumber {
+    font-size: 8px;
+    padding-top: 3px;
+  }
+  .steps strong {
+    font-size: 12px;
+  }
+  .steps small {
+    display: none;
+  }
+  .stage {
+    min-height: 250px;
+  }
+  .stageTop {
+    top: 15px;
+    left: 17px;
+    right: 17px;
+    font-size: 7px;
+    letter-spacing: 1px;
+  }
+  .stageTop > span:last-child {
+    font-size: 11px;
+  }
+  .modelFrame {
+    height: calc(100% - 24px);
+    top: 49%;
+  }
+  .stageBottom {
+    bottom: 12px;
+    left: 16px;
+    right: 16px;
+  }
+  .captionStack {
+    height: 30px;
+  }
+  .captionStack > div {
+    gap: 9px;
+  }
+  .captionStack small {
+    font-size: 6px;
+    letter-spacing: 1px;
+    margin-bottom: 3px;
+  }
+  .captionStack strong {
+    font-size: 11px;
+  }
+  .swatch {
+    width: 15px;
+    height: 19px;
+    border-width: 2px;
+  }
+  .signature {
+    font-size: 23px;
+  }
+  .exampleNote {
+    font-size: 6px;
+  }
+  .scrollFoot {
+    min-height: 32px;
+    font-size: 8px;
+    gap: 8px;
+  }
+  .scrollCue {
+    gap: 5px;
+  }
+}
+@media (max-width: 767px) and (prefers-reduced-motion: no-preference) and (min-height: 700px) {
+  .experience {
+    height: 260svh;
+  }
+  .sticky {
+    top: 12px;
+  }
+}
+@media (max-width: 370px) {
+  .actions {
+    gap: 12px;
+  }
+  .actions > a:first-child {
+    gap: 8px;
+    font-size: 10px;
+    padding-inline: 10px;
+  }
+  .catalogLink {
+    font-size: 9px;
+  }
+  .eyebrow {
+    font-size: 7px;
+  }
+}
+@media (max-height: 699px) and (min-width: 768px) {
+  .sticky {
+    height: 560px;
+  }
+  .copy h1 {
+    font-size: 60px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .experience {
+    height: auto;
+  }
+  .sticky {
+    position: relative;
+  }
+  .stepLine,
+  .captionStack > div {
+    transition: none;
+  }
+  .scrollCue {
+    display: none;
+  }
+}
+@media (forced-colors: active) {
+  .stage {
+    border: 1px solid CanvasText;
+  }
+  .materials {
+    mix-blend-mode: normal;
+  }
+  .steps button[aria-current] {
+    outline: 1px solid Highlight;
+  }
+}
+
+/* Blend at the frame boundary: inline-size containers create their own stacking
+   context, so blending only their children leaves the white photo canvas visible. */
+.modelFrame {
+  mix-blend-mode: normal;
+}
+.materials {
+  mix-blend-mode: normal;
+}
+
+@media (max-height: 699px) and (max-width: 767px) {
+  .sticky {
+    height: auto;
+    min-height: 0;
+  }
+  .layout {
+    grid-template-rows: auto 330px;
+  }
+}
+@media (forced-colors: active) {
+  .modelFrame {
+    mix-blend-mode: normal;
+  }
+}
+
+@media (max-width: 1150px) and (min-width: 901px) {
+  .copy h1 {
+    font-size: 60px;
+  }
+}
+@media (min-width: 768px) and (max-width: 900px) {
+  .copy h1 {
+    font-size: 52px;
+  }
+  .callout {
+    left: 14px;
+  }
+  .callout strong {
+    font-size: 9px;
+  }
+  .callout i {
+    width: 35px;
+  }
+}
+@media (max-width: 767px) {
+  .callout {
+    left: 12px;
+    top: 45%;
+  }
+  .callout span {
+    font-size: 6px;
+  }
+  .callout strong {
+    font-size: 8px;
+    margin-top: 4px;
+  }
+  .callout i {
+    width: 34px;
+    margin-top: 6px;
+  }
+  .backCallout {
+    top: 48%;
+  }
+  .turnGuide {
+    width: 35px;
+    height: 35px;
+    left: 13px;
+    font-size: 8px;
+    bottom: 20%;
+  }
+}
+
+/* Keep the large graphic lettering behind the photograph, rather than letting
+   multiply blending print that lettering onto the blue fabric itself. */
+.modelFrame {
+  background: transparent;
+  mix-blend-mode: normal;
+}
+.face {
+  mix-blend-mode: normal;
+}
+@media (forced-colors: active) {
+  .face {
+    mix-blend-mode: normal;
+  }
+}
+
+.turnLine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  background: var(--accent);
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 0 14px var(--accent-glow);
+}
+.turnLine::before,
+.turnLine::after {
+  content: "";
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border: 1px solid var(--accent);
+  background: var(--hero-surface);
+  left: -2px;
+}
+.turnLine::before {
+  top: 0;
+}
+.turnLine::after {
+  bottom: 0;
+}
+.brandTexture {
+  opacity: 0;
+}
+
+/* The supplied photos have a near-white studio backdrop. Match that surface
+   directly and feather only the empty outer margins, preserving the subject. */
+.face > img {
+  mask-image:
+    linear-gradient(to right, transparent, #000 5%, #000 95%, transparent),
+    linear-gradient(to bottom, transparent, #000 3%);
+  mask-composite: intersect;
+}
+
+/* The photo and text share one full-width gradient. Blend the near-white studio
+   backdrop into it at the frame boundary, keeping the animated faces registered. */
+.modelFrame {
+  mix-blend-mode: multiply;
+}
+@media (max-width: 1150px) {
+  .sticky {
+    padding-inline: 32px;
+  }
+}
+@media (max-width: 767px) {
+  .sticky {
+    padding-inline: 20px;
+  }
+}
+@media (forced-colors: active) {
+  .experience {
+    background: Canvas;
+  }
+  .modelFrame {
+    mix-blend-mode: normal;
+  }
+}
+
+/* Blend at the stage boundary as well: perspective establishes a nested group
+   around the registered photo frames and otherwise keeps their studio canvas white. */
+.stage {
+  mix-blend-mode: multiply;
+}
+@media (forced-colors: active) {
+  .stage {
+    mix-blend-mode: normal;
+  }
+}
+
+/* The headline reaches into the center of the shared scene instead of sitting
+   inside a narrow column separated from the photographed product. */
+.copy h1 > .headlineIntro {
+  display: block;
+  color: var(--ink);
+}
+/* Em-based spacing keeps the inset and punctuation balanced at every headline size. */
+.copy h1 > .headlineHighlight {
+  display: inline-flex;
+  width: fit-content;
+  margin-top: 0.1em;
+  color: var(--ink);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.02;
+  vertical-align: top;
+}
+.headlineWord,
+.headlineRest {
+  padding: 0.025em 0.17em 0.115em 0.14em;
+}
+.headlineWord {
+  background: #111111;
+  color: #ffffff;
+}
+.copy > p {
+  max-width: 520px;
+}
+.mobileBreak {
+  display: none;
+}
+@media (min-width: 768px) {
+  .layout {
+    grid-template-columns: 1.16fr 0.84fr;
+    gap: 0;
+  }
+  .copy {
+    position: relative;
+    z-index: 2;
+    padding-right: 0;
+  }
+  .copy h1 {
+    font-size: clamp(52px, 5.55vw, 80px);
+  }
+  .headlineIntro {
+    white-space: nowrap;
+  }
+  /* Let the available height separate the copy from the bottom action group. */
+  .actions {
+    margin-top: auto;
+    padding-top: 27px;
+  }
+  .steps {
+    max-width: 600px;
+    margin-top: 0;
+  }
+}
+@media (min-width: 768px) and (max-width: 900px) {
+  .copy h1 {
+    font-size: 44px;
+  }
+}
+@media (max-width: 767px) {
+  .mobileBreak {
+    display: block;
+  }
+  .copy > p {
+    max-width: 330px;
+  }
+}
+
+@media (min-width: 901px) {
+  .copy h1 {
+    font-size: clamp(64px, 7.2vw, 104px);
+  }
+  .modelFrame {
+    left: 40%;
+  }
+}
+
+/* Photo annotations own an opaque surface so their contrast does not depend
+   on whether the scroll frame places blue fabric, skin, or trousers underneath. */
+.callout {
+  padding: 10px 12px;
+  min-width: 116px;
+  border: 1px solid #d5ded7;
+  border-radius: 2px;
+  background: #f8faf9;
+  box-shadow: 0 3px 14px #253b2b0a;
+  pointer-events: none;
+}
+.callout span {
+  color: #4f5c54;
+  font-size: 9px;
+}
+.callout strong {
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+}
+.callout i {
+  background: #879b88;
+}
+.turnGuide {
+  color: var(--ink);
+  background: #f8faf9;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 500;
+  z-index: 3;
+}
+.turnRing {
+  border-width: 2px;
+  border-bottom-color: #92a58f;
+  border-left-color: #92a58f;
+}
+.stageBottom {
+  background: #f8faf9;
+  border: 1px solid #d5ded7;
+  border-radius: 2px;
+  padding: 11px 13px;
+  align-items: center;
+  min-height: 64px;
+}
+.captionStack {
+  height: 40px;
+}
+.captionStack small {
+  color: #4f5c54;
+  font-size: 9px;
+  letter-spacing: 1.2px;
+}
+.captionStack strong {
+  color: var(--ink);
+  white-space: normal;
+  line-height: 1.25;
+}
+.exampleNote {
+  color: #4f5c54;
+  padding-bottom: 0;
+}
+@media (max-width: 767px) {
+  .callout {
+    padding: 8px 9px;
+    min-width: 95px;
+  }
+  .callout span {
+    font-size: 8px;
+  }
+  .callout strong {
+    font-size: 11px;
+  }
+  .callout i {
+    width: 40px;
+  }
+  .turnGuide {
+    width: 40px;
+    height: 40px;
+    font-size: 10px;
+  }
+  .stageBottom {
+    left: 12px;
+    right: 12px;
+    bottom: 10px;
+    min-height: 56px;
+    padding: 8px 10px;
+    gap: 8px;
+  }
+  .captionStack {
+    height: 36px;
+  }
+  .captionStack small {
+    font-size: 8px;
+    letter-spacing: 0.8px;
+  }
+  .captionStack strong {
+    font-size: 12px;
+  }
+  .exampleNote {
+    font-size: 8px;
+  }
+}
+@media (forced-colors: active) {
+  .callout,
+  .turnGuide,
+  .stageBottom {
+    background: Canvas;
+    color: CanvasText;
+    border-color: CanvasText;
+  }
+}
+
+/* Hide the outgoing caption immediately; overlapping crossfades make small
+   text unreadable while the scroll timeline moves between adjacent phases. */
+.captionStack > div { visibility: hidden; }
+.experience[data-phase="0"] [data-caption="0"],
+.experience[data-phase="1"] [data-caption="1"],
+.experience[data-phase="2"] [data-caption="2"],
+.experience[data-phase="3"] [data-caption="3"] { visibility: visible; }
+
+/* On phones, settle the gradient before the photo begins. A shared studio
+   surface avoids blend-mode seams while leaving the garment colors intact. */
+@media (max-width: 767px) {
+  .experience {
+    --hero-gradient: linear-gradient(to bottom, #edf2ef 0%, #fcfcfc 44%, #fcfcfc 100%);
+    height: auto;
+    margin-bottom: 32px;
+  }
+  .sticky {
+    position: relative;
+    top: auto;
+    height: auto;
+    min-height: 0;
+    padding: 32px 20px 20px;
+  }
+  .layout {
+    grid-template-rows: auto 420px;
+    gap: 24px;
+  }
+  .copy {
+    display: flex;
+    padding: 0;
+  }
+  .eyebrow {
+    margin-bottom: 18px;
+    font-size: 9px;
+  }
+  .copy h1 {
+    font-size: clamp(42px, 11.5vw, 64px);
+    line-height: 1.06;
+  }
+  .copy > p {
+    font-size: 14px;
+    line-height: 1.65;
+    margin-top: 20px;
+  }
+  .actions {
+    width: 100%;
+    margin-top: 22px;
+    gap: 12px 20px;
+  }
+  .actions > a:first-child {
+    min-height: 46px;
+    padding: 12px 16px;
+    font-size: 12px;
+  }
+  .catalogLink {
+    font-size: 12px;
+  }
+  .steps {
+    padding-top: 22px;
+    gap: 16px;
+  }
+  .steps button {
+    min-height: 44px;
+    align-items: center;
+    gap: 6px;
+  }
+  .stepNumber {
+    padding-top: 0;
+  }
+  .stage {
+    --hero-surface: #fcfcfc;
+    background: var(--hero-surface);
+    mix-blend-mode: normal;
+  }
+  .modelFrame {
+    height: 350px;
+    top: 0;
+    transform: translateX(-50%);
+    mix-blend-mode: normal;
+  }
+  .face > img {
+    mask-image:
+      linear-gradient(to right, transparent, #000 10%, #000 90%, transparent),
+      linear-gradient(to bottom, transparent, #000 5%, #000 94%, transparent);
+  }
+  /* Keep one caption below the model instead of stacking labels over it. */
+  .stageTop,
+  .callout,
+  .turnGuide,
+  .stage::after,
+  .scrollFoot,
+  .signature,
+  .swatch {
+    display: none;
+  }
+  .stageBottom {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    min-height: 60px;
+    padding: 12px 0 0;
+    border: 0;
+    border-top: 1px solid var(--line);
+    border-radius: 0;
+    background: transparent;
+  }
+  .captionStack small {
+    font-size: 9px;
+  }
+  .captionStack strong {
+    font-size: 14px;
+  }
+  .exampleNote {
+    font-size: 9px;
+  }
+}
